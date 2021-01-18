@@ -15,7 +15,7 @@ class LeaderboardTableSeeder extends Seeder
     {
         factory(Leaderboard::class, 3)
             ->create()
-            ->each(function (Leaderboard $leaderboard, $index) {
+            ->each(function(Leaderboard $leaderboard, $index) {
                 $leaderboard->game_id = 1;
                 $leaderboard->timescope = $index; // Create all-time, daily and weekly leaderboards
 
@@ -23,7 +23,7 @@ class LeaderboardTableSeeder extends Seeder
                 if ($index > 0) {
                     factory(LeaderboardReward::class, 5)
                         ->create()
-                        ->each(function (LeaderboardReward $leaderboardReward, $index) {
+                        ->each(function(LeaderboardReward $leaderboardReward, $index) {
                             $leaderboardReward->leaderboard_id = $leaderboard->id;
                             $leaderboardReward->highscore_rank = $index + 1;
                             $leaderboardReward->amount = (6 - $index) * 100;

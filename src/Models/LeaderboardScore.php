@@ -29,8 +29,9 @@ class LeaderboardScore extends Model
 
     public function getNameAttribute()
     {
-        if ($this->player != null)
+        if ($this->player != null) {
             return $this->player->name;
+        }
         return NULL;
         // return $this->player()->firstOrFail()->name;
     }

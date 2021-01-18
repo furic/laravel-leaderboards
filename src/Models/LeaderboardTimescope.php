@@ -38,8 +38,9 @@ class LeaderboardTimescope extends Model
                     break;
             }
             $previousLeaderboardTimescope = SELF::where('start_at', '<', $data['start_at'])->orderBy('start_at', 'desc')->first();
-            if ($previousLeaderboardTimescope)
+            if ($previousLeaderboardTimescope) {
                 $data['previous_id'] = $previousLeaderboardTimescope->id;
+            }
             $leaderboardTimescope = SELF::create($data);
         }
         return $leaderboardTimescope;

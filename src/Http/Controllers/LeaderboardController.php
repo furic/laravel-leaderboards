@@ -338,8 +338,9 @@ class LeaderboardController extends Controller
                 }
             }
             $playerReward = LeaderboardPlayerReward::where('player_id', $request->player_id)->where('leaderboard_timescope_id', $leaderboardTimescope->id)->whereNotNull('score_sum');
-            if (!$playerReward)
+            if (!$playerReward) {
                 $playerReward = LeaderboardPlayerReward::make(['leaderboard_timescope_id' => $leaderboardTimescope->id, 'player_id' => $request->player_id]);
+            }
             $playerReward->score_sum = $rewardedScoreSum;
             $playerReward->save();
         }
@@ -347,8 +348,9 @@ class LeaderboardController extends Controller
         // Rank reward only report to last LeaderboardTimescope
 
         // dd ($leaderboardTimescope->previous());
-        if ($leaderboardTimescope->previous() != null)
+        if ($leaderboardTimescope->previous() != null) {
             $leaderboardTimescope = $leaderboardTimescope->previous();
+        }
 
         $playerReward = LeaderboardPlayerReward::firstOrNew(['player_id' => $request->player_id, 'leaderboard_timescope_id' => $leaderboardTimescope->id]);
         if ($request->has('rank')) {
