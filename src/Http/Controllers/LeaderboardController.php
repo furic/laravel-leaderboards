@@ -24,7 +24,7 @@ class LeaderboardController extends Controller
     public function show($id)
     {
         try {
-            return Leaderboard::findOrFail($id);
+            return response(Leaderboard::findOrFail($id), 200);
         } catch (\Illuminate\Database\Eloquent\ModelNotFoundException $e) {
             return response(['error' => 'Leaderboard not found.'], 400);
         }
@@ -50,7 +50,7 @@ class LeaderboardController extends Controller
         $result['highscore_rank_rewards'] = $leaderboard->highscoreRankRewards();
         $result['utc'] = date('Y-m-d H:i:s');
 
-        return $result;
+        return reponse($result, 200);
     }
 
     /**
@@ -232,7 +232,7 @@ class LeaderboardController extends Controller
         // Get rewarded score
         $leaderboardPlayerReward = LeaderboardPlayerReward::find($leaderboardTimescope->id, $request->query('player_id'));
         if ($leaderboardPlayerReward) { // Show the score of the obtained score reward (current timescope period)
-            $result['rewarded_score'] = $leaderboardPlayerReward->score;
+            $result['rewarded_score'] = $leaderboardPlayerReward->score_sum;
         }
 
         $lastScoreSumRank = 0; $lastHighscoreRank = 0;
@@ -260,7 +260,7 @@ class LeaderboardController extends Controller
             $result = ['success' => 1];
         }
         
-        return $result;
+        return response($result, 200);
     }
 
     /**
@@ -290,7 +290,7 @@ class LeaderboardController extends Controller
         $score = LeaderboardScore::firstOrNew(['leaderboard_timescope_id' => $leaderboardTimescope->id, 'player_id' => $request->player_id]);
         
         if ($leaderboard->sum_score) { // Only perform score sum if leaderboard sum_score set to true
-            $score->score_sum += $score->score;
+            $score->score_sum += $score->score_sum;
             if ($request->score > $score->highscore) { // Update the highscore only when the score is higher
                 $score->highscore = $request->score;
             }
@@ -300,7 +300,7 @@ class LeaderboardController extends Controller
             $score->save();
         }
 
-        return $score;
+        return response($score, 200);
     }
 
     /**
