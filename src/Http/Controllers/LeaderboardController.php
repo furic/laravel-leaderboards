@@ -50,7 +50,7 @@ class LeaderboardController extends Controller
         $result['highscore_rank_rewards'] = $leaderboard->highscoreRankRewards();
         $result['utc'] = date('Y-m-d H:i:s');
 
-        return reponse($result, 200);
+        return response($result, 200);
     }
 
     /**
@@ -330,17 +330,17 @@ class LeaderboardController extends Controller
 
         if ($score && $score->score_sum > 0) { // If player score is already existed and having score_sum
             $scoreSumRewards = $leaderboard->scoreSumRewards();
-            $rewardedScore = 0;
+            $rewardedScoreSum = 0;
             foreach ($scoreSumRewards as $scoreSumReward) {
-                if ($scoreSumReward->score <= $score->score) {
-                    $rewardedScore = $scoreSumReward->score;
+                if ($scoreSumReward->score_sum <= $score->score_sum) {
+                    $rewardedScoreSum = $scoreSumReward->score;
                     break;
                 }
             }
             $playerReward = LeaderboardPlayerReward::where('player_id', $request->player_id)->where('leaderboard_timescope_id', $leaderboardTimescope->id)->whereNotNull('score_sum');
             if (!$playerReward)
                 $playerReward = LeaderboardPlayerReward::make(['leaderboard_timescope_id' => $leaderboardTimescope->id, 'player_id' => $request->player_id]);
-            $playerReward->score_sum = $rewardedScore;
+            $playerReward->score_sum = $rewardedScoreSum;
             $playerReward->save();
         }
 
@@ -359,7 +359,7 @@ class LeaderboardController extends Controller
         }
         $playerReward->save();
 
-        return $playerReward;
+        return response($playerReward, 200);
     }
 
 }

@@ -16,6 +16,7 @@ class LeaderboardTimescope extends Model
                 ->whereDate('end_at', '>=', date('Y-m-d'))
                 ->first();
         if (!$leaderboardTimescope) { // Create a new leaderboard timescope entry if not found
+            $data = [];
             $data['leaderboard_id'] = $leaderboard->id;
             switch ($leaderboard->timescope) {
                 case 1: // Daily
@@ -67,13 +68,6 @@ class LeaderboardTimescope extends Model
     public function orderedScoresByHighscore()
     {
         return $this->hasMany(LeaderboardScore::class)->orderBy('highscore', 'desc');
-    }
-    
-    public function getHighscoreRank($highscore)
-    {
-        return $this->hasMany(LeaderboardScore::class)->filter(function ($score) {
-            return $score['highscore'] > $highscore;
-        });
     }
     
     public function previous()
