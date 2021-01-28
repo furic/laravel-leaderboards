@@ -8,8 +8,8 @@ use Furic\GameEssentials\Models\Player;
 class LeaderboardScore extends Model
 {
 
-    protected $guarded = [];
-    protected $hidden = ['leaderboard_timescope_id', 'player', 'created_at', 'updated_at'];
+    protected $guarded = ['created_at', 'updated_at'];
+    protected $hidden = ['leaderboard_timescope_id', 'player'];
     protected $appends = ['name'];
 
     public static function find($leaderbarodTimescopeId, $playerId)

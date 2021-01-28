@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class LeaderboardReward extends Model
 {
 
-    protected $guarded = [];
-    protected $hidden = ['leaderboard_timescope_id', 'created_at', 'updated_at'];
+    protected $guarded = ['created_at', 'updated_at'];
+    protected $hidden = ['leaderboard_timescope_id'];
 
     public function leaderboardTimescope()
     {

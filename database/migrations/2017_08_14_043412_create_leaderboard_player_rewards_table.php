@@ -24,9 +24,9 @@ class CreateLeaderboardPlayerRewardsTable extends Migration
             
             $table->timestamps();
             
-            $table->unique(['leaderboard_timescope_id', 'player_id', 'score_sum']);
-            $table->unique(['leaderboard_timescope_id', 'player_id', 'score_sum_rank']);
-            $table->unique(['leaderboard_timescope_id', 'player_id', 'highscore_rank']);
+            $table->unique(['leaderboard_timescope_id', 'player_id', 'score_sum'], 'leaderboard_player_rewards_score_sum_unique');
+            $table->unique(['leaderboard_timescope_id', 'player_id', 'score_sum_rank'], 'leaderboard_player_rewards_score_sum_rank_unique');
+            $table->unique(['leaderboard_timescope_id', 'player_id', 'highscore_rank'], 'leaderboard_player_rewards_highscore_rank_unique');
             $table->foreign('player_id')->references('id')->on('players')->onDelete('cascade');
             $table->foreign('leaderboard_timescope_id')->references('id')->on('leaderboard_timescopes')->onDelete('cascade');
         });

@@ -3,8 +3,8 @@
 [![Packagist](https://img.shields.io/packagist/v/furic/leaderboards)](https://packagist.org/packages/furic/leaderboards)
 [![Packagist](https://img.shields.io/packagist/dt/furic/leaderboards)](https://packagist.org/packages/furic/leaderboards)
 [![License](https://img.shields.io/github/license/furic/laravel-leaderboards)](https://packagist.org/packages/furic/leaderboards)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/furic/laravel-leaderboards/badges/quality-score.png?b=main)](https://scrutinizer-ci.com/g/furic/laravel-leaderboards/?branch=main)
-[![Build Status](https://scrutinizer-ci.com/g/furic/laravel-leaderboards/badges/build.png?b=main)](https://scrutinizer-ci.com/g/furic/laravel-leaderboards/build-status/main)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/furic/laravel-leaderboards/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/furic/laravel-leaderboards/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/furic/laravel-leaderboards/badges/build.png?b=master)](https://scrutinizer-ci.com/g/furic/laravel-leaderboards/build-status/master)
 
 > Leaderboards management for [Laravel 5.*](https://laravel.com/). This package is developed while working for a leaderboard solution in [Sweaty Chair Studio](https://www.sweatychair.com), serving leaderboards to players. This contains RESTful API for reading the leaderboard in daily, weekly, monthly or all-time period, reporting players' scores to server, as well as getting reward for top ranks. 
 

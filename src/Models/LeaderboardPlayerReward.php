@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class LeaderboardPlayerReward extends Model
 {
 
-    protected $guarded = [];
+    protected $guarded = ['created_at', 'updated_at'];
 
     public static function find($leaderbarodTimescopeId, $playerId)
     {

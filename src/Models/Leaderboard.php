@@ -8,7 +8,7 @@ use Furic\Leaderboards\Models\LeaderboardTimescope;
 class Leaderboard extends Model
 {
 
-    protected $guarded = [];
+    protected $guarded = ['created_at', 'updated_at'];
 
     protected $appends = ['currentTimescope'];
 

@@ -4,7 +4,7 @@ use Furic\Leaderboards\Models\Leaderboard;
 use Furic\Leaderboards\Models\LeaderboardReward;
 use Illuminate\Database\Seeder;
 
-class LeaderboardTableSeeder extends Seeder
+class LeaderboardSeeder extends Seeder
 {
     /**
      * Run the database seeds.
