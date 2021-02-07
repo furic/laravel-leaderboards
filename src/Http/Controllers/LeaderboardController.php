@@ -238,7 +238,7 @@ class LeaderboardController extends Controller
         $result = [];
         
         // Get rewarded score
-        $leaderboardPlayerReward = LeaderboardPlayerReward::find($leaderboardTimescope->id, $request->player_id));
+        $leaderboardPlayerReward = LeaderboardPlayerReward::find($leaderboardTimescope->id, $request->player_id);
         if ($leaderboardPlayerReward) { // Show the score of the obtained score reward (current timescope period)
             $result['rewarded_score_sum'] = $leaderboardPlayerReward->score_sum;
         }
