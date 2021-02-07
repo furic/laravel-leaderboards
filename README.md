@@ -190,6 +190,13 @@ You can simply import this repo in Unity to communicate with your Laravel server
 - Add admin login for web console.
 - Add tests and factories.
 
+## Alternative Solutions
+Before you start running and developing your Laravel server, you should always consider other leaderboard solutions first:
+- (Mobile only) App Game Center and Google Play Games leaderboards: highly recommendated for mobile games but not cross-platform and the control such as removing hacker scores is limited.
+- [dreamlo](http://dreamlo.com): A free cross-platform leaderboard service, also limited control.
+- [GameSparks](https://www.gamesparks.com)/[Playfab](https://www.playfab.com) Full game server services including leaderboards, great for mid-core games but require good javascript and daabase knowledge.
+
+
 ## License
 
 laravel-leaderboards is licensed under a [MIT License](https://github.com/furic/laravel-leaderboards/blob/main/LICENSE).
