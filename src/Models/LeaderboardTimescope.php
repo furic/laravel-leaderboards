@@ -37,7 +37,7 @@ class LeaderboardTimescope extends Model
                     $data['end_at'] = date('2099-12-31');
                     break;
             }
-            $previousLeaderboardTimescope = SELF::where('start_at', '<', $data['start_at'])->orderBy('start_at', 'desc')->first();
+            $previousLeaderboardTimescope = SELF::where('leaderboard_id', $leaderboard->id)->where('start_at', '<', $data['start_at'])->orderBy('start_at', 'desc')->first();
             if ($previousLeaderboardTimescope) {
                 $data['previous_id'] = $previousLeaderboardTimescope->id;
             }

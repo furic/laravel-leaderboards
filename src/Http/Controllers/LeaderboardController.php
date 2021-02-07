@@ -76,14 +76,14 @@ class LeaderboardController extends Controller
         if ($request->filled('player_id')) { // If specific player
             
             $scoreCount = $scoresCol->count();
-            $myScoreCol = $scoresCol->where('player_id', $request->query('player_id'));
+            $myScoreCol = $scoresCol->where('player_id', $request->player_id);
 
             if ($myScoreCol->count() > 0) { // If my score is previously uploaded
                 
                 $myRank = 1;
 
                 for ($i = 0; $i < $scoreCount; $i++) {
-                    if ($scoresCol[$i]->player_id == $request->query('player_id')) {
+                    if ($scoresCol[$i]->player_id == $request->player_id) {
                         $myRank = $i + 1;
                         break;
                     }
@@ -117,8 +117,8 @@ class LeaderboardController extends Controller
 
                 $scores = $scoresCol->toArray();
                 
-                $player = Player::find($request->query('player_id'));
-                $myScore = ["player_id" => $request->query('player_id'), "name" => $player->name, "score" => "0"];
+                $player = Player::find($request->player_id);
+                $myScore = ["player_id" => $request->player_id, "name" => $player->name, "score" => "0"];
                 
                 $scores = array_merge($scores, [$myScore]);
                 
@@ -172,7 +172,7 @@ class LeaderboardController extends Controller
             
         if ($request->filled('player_id')) { // If specific player, add he/she at the end
             
-            $myScoreCol = $scoresCol->where('player_id', $request->query('player_id'));
+            $myScoreCol = $scoresCol->where('player_id', $request->player_id);
 
             $myHighscore = 0;
             $myRank = $scoresCount + 1;
@@ -180,7 +180,7 @@ class LeaderboardController extends Controller
             if ($myScoreCol->count() > 0) { // If my score is previously uploaded
                 
                 for ($i = 0; $i < $scoresCount; $i++) {
-                    if ($scoresCol[$i]->player_id == $request->query('player_id')) {
+                    if ($scoresCol[$i]->player_id == $request->player_id) {
                         $myHighscore = $scoresCol[$i]->highscore;
                         $myRank = $i + 1;
                         break;
@@ -192,8 +192,8 @@ class LeaderboardController extends Controller
                 }
             }
             
-            $player = Player::find($request->query('player_id'));
-            $myHighscoreRow = ["player_id" => $request->query('player_id'), "name" => $player->name, "highscore" => $myHighscore, "rank" => $myRank];
+            $player = Player::find($request->player_id);
+            $myHighscoreRow = ["player_id" => $request->player_id, "name" => $player->name, "highscore" => $myHighscore, "rank" => $myRank];
             $scores = array_merge($scores, [$myHighscoreRow]);
             
         } else { // If no specific player, show the first <limit> rows
@@ -238,7 +238,7 @@ class LeaderboardController extends Controller
         $result = [];
         
         // Get rewarded score
-        $leaderboardPlayerReward = LeaderboardPlayerReward::find($leaderboardTimescope->id, $request->query('player_id'));
+        $leaderboardPlayerReward = LeaderboardPlayerReward::find($leaderboardTimescope->id, $request->player_id));
         if ($leaderboardPlayerReward) { // Show the score of the obtained score reward (current timescope period)
             $result['rewarded_score_sum'] = $leaderboardPlayerReward->score_sum;
         }
@@ -251,8 +251,12 @@ class LeaderboardController extends Controller
             if (!$playerReward) { // Not yet obtained player reward (last timescope period), do a score check
                 $lastScore = LeaderboardScore::find($lastLeaderboardTimescope->id, $request->player_id);
                 if ($lastScore) { // Has last my score
-                    $lastScoreSumRank = LeaderboardScore::where('leaderboard_timescope_id', $lastLeaderboardTimescope->id)->where('score_sum', '>', $lastScore->score_sum)->count() + 1;
-                    $lastHighscoreRank = LeaderboardScore::where('leaderboard_timescope_id', $lastLeaderboardTimescope->id)->where('highscore', '>', $lastScore->highscore)->count() + 1;
+                    if ($lastScore->score_sum > 0) {
+                        $lastScoreSumRank = LeaderboardScore::where('leaderboard_timescope_id', $lastLeaderboardTimescope->id)->where('score_sum', '>', $lastScore->score_sum)->count() + 1;
+                    }
+                    if ($lastScore->highscore > 0) {
+                        $lastHighscoreRank = LeaderboardScore::where('leaderboard_timescope_id', $lastLeaderboardTimescope->id)->where('highscore', '>', $lastScore->highscore)->count() + 1;
+                    }
                 }
             }
             if ($playerReward) { // Unset the ranks if already redeemed
